@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using SmartThings.Forms;
+using System;
 using System.Windows.Forms;
 
 namespace SmartThings
@@ -16,7 +14,7 @@ namespace SmartThings
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new SmartThings());
+            Application.Run(new MainForm());
         }
     }
 }

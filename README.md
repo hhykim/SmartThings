@@ -19,4 +19,4 @@ SmartThings API를 통해 공식 앱에서 지원하지 않는 에어컨 온도 
 ```bash
 curl -H "Authorization: Bearer YOUR_TOKEN" https://api.smartthings.com/v1/devices
 ```
-3. `SmartThings.cs` 파일의 `Token`, `Url` 변수에 값을 채웁니다.
+3. `SmartThingsService.cs` 파일의 `Token`, `Url` 변수에 값을 채웁니다.

@@ -97,16 +97,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="SmartThings.cs">
+    <Compile Include="Dtos\Requests\Body.cs" />
+    <Compile Include="Dtos\Requests\BodyWithArguments.cs" />
+    <Compile Include="Dtos\Responses\Power.cs" />
+    <Compile Include="Dtos\Responses\Thermostat.cs" />
+    <Compile Include="Forms\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SmartThings.Designer.cs">
-      <DependentUpon>SmartThings.cs</DependentUpon>
+    <Compile Include="Forms\MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="SmartThings.resx">
-      <DependentUpon>SmartThings.cs</DependentUpon>
+    <Compile Include="Services\SmartThingsService.cs" />
+    <EmbeddedResource Include="Forms\MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -148,5 +153,6 @@
     <Content Include="icon.ico" />
     <None Include="Resources\aircon.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
