@@ -39,6 +39,7 @@
             // 
             // AirconPictureBox
             // 
+            this.AirconPictureBox.Cursor = System.Windows.Forms.Cursors.Hand;
             this.AirconPictureBox.Image = global::SmartThings.Properties.Resources.aircon;
             this.AirconPictureBox.Location = new System.Drawing.Point(12, 12);
             this.AirconPictureBox.Name = "AirconPictureBox";
@@ -113,7 +114,6 @@
             this.MaximizeBox = false;
             this.Name = "MainForm";
             this.Text = "SmartThings";
-            this.Activated += new System.EventHandler(this.MainForm_Activated);
             ((System.ComponentModel.ISupportInitialize)(this.AirconPictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.TemperatureUpDown)).EndInit();
             this.ResumeLayout(false);
