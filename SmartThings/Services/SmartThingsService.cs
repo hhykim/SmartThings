@@ -9,31 +9,33 @@ namespace SmartThings.Services
 {
     internal class SmartThingsService
     {
-        private const string Url = "https://api.smartthings.com/v1/devices";  // TODO: Add device ID.
-        private const string Token = "";  // TODO: Add personal access token.
-
-        private readonly RestClient client;
+        private readonly RestClient _client;
+        private readonly string _baseUrl;
 
         public SmartThingsService()
         {
+            Properties.Settings settings = Properties.Settings.Default;
+
             var options = new RestClientOptions
             {
-                Authenticator = new JwtAuthenticator(Token)
+                Authenticator = new JwtAuthenticator(settings.PersonalAccessToken)
             };
-            client = new RestClient(options);
+            _client = new RestClient(options);
+
+            _baseUrl = $"https://api.smartthings.com/v1/devices/{settings.DeviceId}";
         }
 
         public async Task<bool> IsPowerOnAsync()
         {
-            string url = $"{Url}/components/main/capabilities/switch/status";
-            Power power = await client.GetAsync<Power>(url);
+            var url = $"{_baseUrl}/components/main/capabilities/switch/status";
+            Power power = await _client.GetAsync<Power>(url);
 
             return power.Switch.Value == "on";
         }
 
         public async Task SetPowerAsync(bool powerOn)
         {
-            var request = new RestRequest($"{Url}/commands");
+            var request = new RestRequest($"{_baseUrl}/commands");
             var param = new Body
             {
                 Commands = new List<Command>
@@ -47,20 +49,20 @@ namespace SmartThings.Services
             };
 
             request.AddJsonBody(param);
-            await client.PostAsync(request);
+            await _client.PostAsync(request);
         }
 
         public async Task<int> GetTemperatureAsync()
         {
-            string url = $"{Url}/components/main/capabilities/thermostatCoolingSetpoint/status";
-            Thermostat thermostat = await client.GetAsync<Thermostat>(url);
+            var url = $"{_baseUrl}/components/main/capabilities/thermostatCoolingSetpoint/status";
+            Thermostat thermostat = await _client.GetAsync<Thermostat>(url);
 
             return thermostat.CoolingSetpoint.Value;
         }
 
         public async Task SetTemperatureAsync(int temperature)
         {
-            var request = new RestRequest($"{Url}/commands");
+            var request = new RestRequest($"{_baseUrl}/commands");
             var param = new BodyWithArguments
             {
                 Commands = new List<CommandWithArguments>
@@ -69,7 +71,7 @@ namespace SmartThings.Services
                     {
                         Capability = "thermostatCoolingSetpoint",
                         Action = "setCoolingSetpoint",
-                        Arguments = new List<int>
+                        Arguments = new List<object>
                         {
                             temperature
                         }
@@ -78,7 +80,7 @@ namespace SmartThings.Services
             };
 
             request.AddJsonBody(param);
-            await client.PostAsync(request);
+            await _client.PostAsync(request);
         }
     }
 }

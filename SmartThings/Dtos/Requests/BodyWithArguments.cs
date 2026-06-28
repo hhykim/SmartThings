@@ -9,6 +9,6 @@ namespace SmartThings.Dtos.Requests
 
     internal class CommandWithArguments : Command
     {
-        public List<int> Arguments { get; set; }
+        public List<object> Arguments { get; set; }
     }
 }

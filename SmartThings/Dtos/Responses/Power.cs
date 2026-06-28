@@ -1,4 +1,6 @@
-﻿namespace SmartThings.Dtos.Responses
+﻿using System;
+
+namespace SmartThings.Dtos.Responses
 {
     internal class Power
     {
@@ -8,6 +10,6 @@
     internal class Switch
     {
         public string Value { get; set; }
-        public string Timestamp { get; set; }
+        public DateTimeOffset Timestamp { get; set; }
     }
 }

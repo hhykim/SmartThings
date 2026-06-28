@@ -40,7 +40,7 @@
             // AirconPictureBox
             // 
             this.AirconPictureBox.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.AirconPictureBox.Image = global::SmartThings.Properties.Resources.aircon;
+            this.AirconPictureBox.Image = global::SmartThings.Properties.Resources.Aircon;
             this.AirconPictureBox.Location = new System.Drawing.Point(12, 12);
             this.AirconPictureBox.Name = "AirconPictureBox";
             this.AirconPictureBox.Size = new System.Drawing.Size(314, 100);

@@ -7,14 +7,14 @@ namespace SmartThings.Forms
 {
     public partial class MainForm : Form
     {
-        private readonly SmartThingsService service;
-        private bool isUpdating;
+        private readonly SmartThingsService _service;
+        private bool _isUpdating;
 
         public MainForm()
         {
             InitializeComponent();
 
-            service = new SmartThingsService();
+            _service = new SmartThingsService();
 
             Deactivate += (s, e) => SetControlsState(false);
             Shown += async (s, e) => await ExecuteAsync(UpdateControlsState);
@@ -27,13 +27,13 @@ namespace SmartThings.Forms
 
             PowerCheckBox.Click += async (s, e) =>
             {
-                await ExecuteAsync(() => service.SetPowerAsync(PowerCheckBox.Checked));
+                await ExecuteAsync(() => _service.SetPowerAsync(PowerCheckBox.Checked));
             };
         }
 
         private async void TemperatureUpDown_ValueChanged(object sender, EventArgs e)
         {
-            await ExecuteAsync(() => service.SetTemperatureAsync((int)TemperatureUpDown.Value));
+            await ExecuteAsync(() => _service.SetTemperatureAsync((int)TemperatureUpDown.Value));
         }
 
         private async Task UpdateControlsState()
@@ -41,8 +41,8 @@ namespace SmartThings.Forms
             TemperatureUpDown.ValueChanged -= new EventHandler(TemperatureUpDown_ValueChanged);
             try
             {
-                TemperatureUpDown.Value = await service.GetTemperatureAsync();
-                PowerCheckBox.Checked = await service.IsPowerOnAsync();
+                TemperatureUpDown.Value = await _service.GetTemperatureAsync();
+                PowerCheckBox.Checked = await _service.IsPowerOnAsync();
             }
             finally
             {
@@ -66,7 +66,7 @@ namespace SmartThings.Forms
             }
             else
             {
-                AirconPictureBox.Cursor = isUpdating ? Cursors.WaitCursor : Cursors.Hand;
+                AirconPictureBox.Cursor = _isUpdating ? Cursors.WaitCursor : Cursors.Hand;
                 TemperatureLabel.Enabled = false;
                 TemperatureUpDown.Enabled = false;
                 PowerCheckBox.Enabled = false;
@@ -75,9 +75,9 @@ namespace SmartThings.Forms
 
         private async Task ExecuteAsync(Func<Task> action)
         {
-            if (isUpdating) return;
+            if (_isUpdating) return;
 
-            isUpdating = true;
+            _isUpdating = true;
             try
             {
                 SetControlsState(false);
@@ -89,7 +89,7 @@ namespace SmartThings.Forms
             }
             finally
             {
-                isUpdating = false;
+                _isUpdating = false;
                 if (!PowerCheckBox.Enabled)
                 {
                     AirconPictureBox.Cursor = Cursors.Hand;
